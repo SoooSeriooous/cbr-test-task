@@ -1,0 +1,37 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+### VS Code ###
+.vscode/
+!/.mvn/wrapper/
+!/.mvn/
+Будет удалено src/main/java/my/test/cbrtask/controllers/
+Будет удалено src/main/java/my/test/cbrtask/services/
+Будет удалено src/main/resources/static/
+Будет удалено src/main/resources/templates/
