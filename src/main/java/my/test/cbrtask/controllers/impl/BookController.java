@@ -14,10 +14,10 @@ import java.util.List;
 @RequestMapping(value = "/api/book")
 public class BookController implements AppController<Book, BookDto> {
 
-  private final BookService service;
+  private final BookService bookService;
 
-  public BookController(BookService service) {
-    this.service = service;
+  public BookController(BookService bookService) {
+    this.bookService = bookService;
   }
 
   @Override
@@ -33,21 +33,23 @@ public class BookController implements AppController<Book, BookDto> {
   }
 
   @Override
-  @DeleteMapping
-  public ResponseEntity delete(@RequestBody Book item) {
-    return null;
+  @DeleteMapping(value = "/id")
+  public ResponseEntity<String> delete(@PathVariable Long id) {
+    bookService.deleteItem(id);
+    return ResponseEntity.ok("Book has been successfully deleted");
   }
 
   @Override
   @GetMapping(value = "/{id}")
-  public ResponseEntity<BookDto> getItem(@RequestParam Long id) {
-    return null;
+  public ResponseEntity<BookDto> getItem(@PathVariable Long id) {
+    BookDto book = bookService.getItemById(id);
+    return ResponseEntity.ok(book);
   }
 
   @Override
   @GetMapping
   public ResponseEntity<List<BookDto>> getItemList() {
-    List<BookDto> books = service.getItems();
+    List<BookDto> books = bookService.getItems();
     return ResponseEntity.ok(books);
   }
 }

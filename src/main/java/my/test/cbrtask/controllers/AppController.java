@@ -9,7 +9,7 @@ public interface AppController<T, U> {
 
   ResponseEntity edit(U item);
 
-  ResponseEntity delete(T item);
+  ResponseEntity delete(Long id);
 
   ResponseEntity<U> getItem(Long id);
 

@@ -20,8 +20,19 @@ public class BookService {
 
   public List<BookDto> getItems() {
     List<Book> books = bookRepository.findAll();
-    List<BookDto> bookDtos =
-        books.stream().map(BookMapper.BOOK_MAPPER::fromBook).collect(Collectors.toList());
-    return bookDtos;
+    return books.stream().map(BookMapper.BOOK_MAPPER::fromBook).collect(Collectors.toList());
+  }
+
+  public BookDto getItemById(Long id) {
+    Book book = bookRepository.findById(id).orElse(new Book());
+    return BookMapper.BOOK_MAPPER.fromBook(book);
+  }
+
+  /**
+   * Когда удаляю книгу - автор остаётся.
+   * @param id
+   */
+  public void deleteItem(Long id) {
+    bookRepository.deleteById(id);
   }
 }
