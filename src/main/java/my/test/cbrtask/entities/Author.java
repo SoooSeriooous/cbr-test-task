@@ -1,7 +1,7 @@
 package my.test.cbrtask.entities;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -12,16 +12,16 @@ public class Author {
   @Column(name = "ID")
   private Long id;
 
-  @Column(name = "NAME")
+  @Column(name = "NAME", nullable = false)
   private String name;
 
-  @Column(name = "SURNAME")
+  @Column(name = "SURNAME", nullable = false)
   private String surname;
 
   @Column(name = "BIRTH_DATE")
-  private Date birthDate;
+  private LocalDate birthDate;
 
-  @OneToMany(mappedBy = "author")
+  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "authors")
   private List<Book> books;
 
   public Author() {}
@@ -50,11 +50,19 @@ public class Author {
     this.surname = surname;
   }
 
-  public Date getBirthDate() {
+  public LocalDate getBirthDate() {
     return birthDate;
   }
 
-  public void setBirthDate(Date birthDate) {
+  public void setBirthDate(LocalDate birthDate) {
     this.birthDate = birthDate;
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 }
