@@ -1,6 +1,6 @@
 create table if not exists author
 (
-    id         number auto_increment,
+    id         IDENTITY auto_increment,
     name       varchar(250) not null,
     surname    varchar(250) not null,
     birth_date date,
@@ -10,7 +10,7 @@ create table if not exists author
 
 create table if not exists BOOK
 (
-    ID               NUMBER auto_increment,
+    ID               IDENTITY auto_increment,
     NAME             VARCHAR(250) not null,
     DESCRIPTION      VARCHAR(1000),
     PUBLICATION_DATE DATE,
@@ -30,17 +30,17 @@ create table if not exists AUTHOR_BOOK
         foreign key (BOOK_ID) references BOOK (ID)
 );
 
-INSERT INTO AUTHOR (ID, NAME, SURNAME, BIRTH_DATE)
-VALUES (1, 'Александр', 'Пушкин', '1799-06-06');
-INSERT INTO AUTHOR (ID, NAME, SURNAME, BIRTH_DATE)
-VALUES (2, 'Михаил', 'Лермонтов', '1814-10-15');
+INSERT INTO AUTHOR (NAME, SURNAME, BIRTH_DATE)
+VALUES ('Александр', 'Пушкин', '1799-06-06');
+INSERT INTO AUTHOR (NAME, SURNAME, BIRTH_DATE)
+VALUES ('Михаил', 'Лермонтов', '1814-10-15');
 
-INSERT INTO BOOK (ID, NAME, DESCRIPTION, PUBLICATION_DATE)
-VALUES (1, 'Евгений Онегин', 'КЛАССИКА - КЛАССИКА', '2012-06-01');
-INSERT INTO BOOK (ID, NAME, DESCRIPTION, PUBLICATION_DATE)
-VALUES (2, 'Мцыри', 'ВААЩЕ АГОНЬ', '2016-05-09');
-INSERT INTO BOOK (ID, NAME, DESCRIPTION, PUBLICATION_DATE)
-VALUES (3, 'Анталогия произведений', 'ШТОЗАФИГНЯ', '2018-04-01');
+INSERT INTO BOOK (NAME, DESCRIPTION, PUBLICATION_DATE)
+VALUES ('Евгений Онегин', 'КЛАССИКА - КЛАССИКА', '2012-06-01');
+INSERT INTO BOOK (NAME, DESCRIPTION, PUBLICATION_DATE)
+VALUES ('Мцыри', 'ВААЩЕ АГОНЬ', '2016-05-09');
+INSERT INTO BOOK (NAME, DESCRIPTION, PUBLICATION_DATE)
+VALUES ('Анталогия произведений', 'ШТОЗАФИГНЯ', '2018-04-01');
 
 INSERT INTO AUTHOR_BOOK (AUTHOR_ID, BOOK_ID)
 VALUES (1, 1);

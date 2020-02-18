@@ -2,6 +2,7 @@ package my.test.cbrtask.services;
 
 import my.test.cbrtask.configs.BookMapper;
 import my.test.cbrtask.dtos.BookDto;
+import my.test.cbrtask.entities.Author;
 import my.test.cbrtask.entities.Book;
 import my.test.cbrtask.repositories.BookRepository;
 import org.springframework.stereotype.Service;
@@ -30,9 +31,22 @@ public class BookService {
 
   /**
    * Когда удаляю книгу - автор остаётся.
+   *
    * @param id
    */
   public void deleteItem(Long id) {
     bookRepository.deleteById(id);
+  }
+
+  public void updateBook(BookDto editedBook) {
+    Book book = BookMapper.BOOK_MAPPER.toBook(editedBook);
+    bookRepository.save(book);
+  }
+
+  public void saveBook(BookDto newBook) {
+    Book book = BookMapper.BOOK_MAPPER.toBook(newBook);
+    if (!bookRepository.existsBooksByName(book.getName())) {
+      bookRepository.save(book);
+    }
   }
 }

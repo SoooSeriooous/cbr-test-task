@@ -22,20 +22,21 @@ public class AuthorController implements AppController<Author, AuthorDto> {
 
   @Override
   @PostMapping
-  public ResponseEntity save(@RequestBody AuthorDto item) {
-    return null;
+  public ResponseEntity<String> save(@RequestBody AuthorDto item) {
+    authorService.saveAuthor(item);
+    return ResponseEntity.ok("Author has been successfully saved.");
   }
 
   @Override
   @PutMapping
-  public ResponseEntity<AuthorDto> edit(@RequestBody AuthorDto newItem) {
-    authorService.updateAuthor(newItem);
-    return null;
+  public ResponseEntity<String> update(@RequestBody AuthorDto editedAuthor) {
+    authorService.updateAuthor(editedAuthor);
+    return ResponseEntity.ok("Author has been successfully updated");
   }
 
   @Override
-  @DeleteMapping(value = "/id")
-  public ResponseEntity delete(Long id) {
+  @DeleteMapping(value = "/{id}")
+  public ResponseEntity<String> delete(@PathVariable Long id) {
     authorService.deleteItem(id);
     return ResponseEntity.ok("Author has been successfully deleted");
   }

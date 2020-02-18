@@ -7,8 +7,6 @@ import my.test.cbrtask.repositories.AuthorRepository;
 import my.test.cbrtask.repositories.BookRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,11 +40,20 @@ public class AuthorService {
    * @param id идентификатор для автора
    */
   public void deleteItem(Long id) {
-    bookRepository.deleteAllByAuthors(
-        Collections.singletonList(authorRepository.findById(id).orElse(new Author())));
+    bookRepository.deleteBooksByAuthors(authorRepository.findById(id).orElse(new Author()));
     authorRepository.deleteById(id);
   }
 
-  public void updateAuthor(AuthorDto newItem) {
+  public void updateAuthor(AuthorDto editedAuthor) {
+    Author author = AuthorMapper.AUTHOR_MAPPER.toAuthor(editedAuthor);
+    authorRepository.save(author);
+  }
+
+  public void saveAuthor(AuthorDto newAuthor) {
+    Author author = AuthorMapper.AUTHOR_MAPPER.toAuthor(newAuthor);
+    if (!authorRepository.existsAuthorsByBirthDateAndNameAndSurname(
+        author.getBirthDate(), author.getName(), author.getSurname())) {
+      authorRepository.save(author);
+    }
   }
 }

@@ -22,14 +22,16 @@ public class BookController implements AppController<Book, BookDto> {
 
   @Override
   @PostMapping
-  public ResponseEntity save(@RequestBody BookDto item) {
-    return null;
+  public ResponseEntity<String> save(@RequestBody BookDto newBook) {
+    bookService.saveBook(newBook);
+    return ResponseEntity.ok("Book has been successfully saved.");
   }
 
   @Override
   @PutMapping
-  public ResponseEntity edit(@RequestBody BookDto dto) {
-    return null;
+  public ResponseEntity<String> update(@RequestBody BookDto editedBook) {
+    bookService.updateBook(editedBook);
+    return ResponseEntity.ok("Book has been successfully updated.");
   }
 
   @Override

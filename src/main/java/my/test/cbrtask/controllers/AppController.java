@@ -7,7 +7,7 @@ import java.util.List;
 public interface AppController<T, U> {
   ResponseEntity save(U item);
 
-  ResponseEntity edit(U item);
+  ResponseEntity update(U item);
 
   ResponseEntity delete(Long id);
 

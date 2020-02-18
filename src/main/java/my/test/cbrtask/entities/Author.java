@@ -3,13 +3,27 @@ package my.test.cbrtask.entities;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "AUTHOR")
 public class Author {
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Author author = (Author) o;
+    return id.equals(author.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
+  }
 
   @Id
   @Column(name = "ID")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(name = "NAME", nullable = false)
@@ -21,7 +35,7 @@ public class Author {
   @Column(name = "BIRTH_DATE")
   private LocalDate birthDate;
 
-  @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "authors")
+  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY, mappedBy = "authors")
   private List<Book> books;
 
   public Author() {}
