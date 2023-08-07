@@ -40,7 +40,7 @@ public class AuthorService {
    * @param id идентификатор для автора
    */
   public void deleteItem(Long id) {
-    bookRepository.deleteBooksByAuthors(authorRepository.findById(id).orElse(new Author()));
+    bookRepository.deleteBooksByAuthor(authorRepository.findById(id).orElse(new Author()));
     authorRepository.deleteById(id);
   }
 
@@ -51,8 +51,8 @@ public class AuthorService {
 
   public void saveAuthor(AuthorDto newAuthor) {
     Author author = AuthorMapper.AUTHOR_MAPPER.toAuthor(newAuthor);
-    if (!authorRepository.existsAuthorsByBirthDateAndNameAndSurname(
-        author.getBirthDate(), author.getName(), author.getSurname())) {
+    if (Boolean.FALSE.equals(authorRepository.existsAuthorsByBirthDateAndNameAndSurname(
+        author.getBirthDate(), author.getName(), author.getSurname()))) {
       authorRepository.save(author);
     }
   }

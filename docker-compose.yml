@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  cbr-task-java:
+    build: "."
+    container_name: "cbr-task-java"
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://cbr-task-db:5432/cbr-test
+      - SPRING_DATASOURCE_USER=postgres
+      - SPRING_DATASOURCE_PASSWORD=my_secret_pass
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
+    depends_on:
+      - cbr-task-db
+
+  cbr-task-db:
+    container_name: "cbr-task-db"
+    image: "postgres:latest"
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=my_secret_pass
+      - POSTGRES_DB=cbr-test
